@@ -32,8 +32,8 @@ jobs:
 
              - name: Build the Docker image
                run: |
-                  docker build -t 525689567433.dkr.ecr.us-east-2.amazonaws.com/nodejs-project:$GITHUB_REF_NAME-$GITHUB_SHA . 
-                  docker push 525689567433.dkr.ecr.us-east-2.amazonaws.com/nodejs-project:$GITHUB_REF_NAME-$GITHUB_SHA
+                  docker build -t ${{secrets.AWS_REPOSITORY_URL}}:$GITHUB_REF_NAME-$GITHUB_SHA . 
+                  docker push ${{secrets.AWS_REPOSITORY_URL}}:$GITHUB_REF_NAME-$GITHUB_SHA
 
                   git clone https://${{secrets.AWS_GITHUB_USER}}:${{secrets.AWS_GITHUB_TOKEN}}@github.com/saiurakrishna/gitops-k8s.git
 
@@ -42,7 +42,7 @@ jobs:
                   git config user.name "saiurakrishna"
                   git config user.email "saikrishna.ura@gmail.com"
 
-                  yq e '.spec.template.spec.containers[0].image = "525689567433.dkr.ecr.us-east-2.amazonaws.com/nodejs-project:${{ env.GITHUB_BRANCH }}" ' -i deployment.apps/nodejs.yaml
+                  yq e '.spec.template.spec.containers[0].image = "${{AWS_REPOSITORY_URL}}:${{ env.GITHUB_BRANCH }}" ' -i deployment.apps/nodejs.yaml
 
                   git add .
                   git commit -m "update the code"
