@@ -9,7 +9,7 @@ const HOST = '0.0.0.0';
 // App
 const app = express();
 app.get('/', (req, res) => {
-  res.send('HELLO WORLD FROM K8S AUTOMATION BY USING GITOPS && ARGOCD Automation SYNC');
+  res.send('NODEJS Project HELLO WORLD FROM K8S AUTOMATION BY USING GITOPS && ARGOCD Automation SYNC');
 });
 
 app.listen(PORT, HOST, () => {
